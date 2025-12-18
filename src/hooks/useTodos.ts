@@ -48,12 +48,21 @@ export const useTodos = () => {
     setTodos((prevTodoList) => prevTodoList.filter((todo) => todo.id !== id))
   }
 
-  const filterTodos = (text: string, isCompleted: boolean): Todo[] =>
-    todos.filter(
-      (todo) =>
-        todo.isCompleted === isCompleted &&
+  const filterTodos = (text: string, isCompleted?: boolean): Todo[] => {
+    console.log({ text, isCompleted })
+
+    if (isCompleted === undefined) {
+      return todos.filter((todo) =>
         todo.text.toLowerCase().includes(text.toLowerCase())
-    )
+      )
+    } else {
+      return todos.filter(
+        (todo) =>
+          todo.isCompleted === isCompleted &&
+          todo.text.toLowerCase().includes(text.toLowerCase())
+      )
+    }
+  }
 
   return {
     todos,
